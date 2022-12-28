@@ -1,0 +1,36 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  port: 5433
+  pool: 5
+
+production: &production
+  <<: *default
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
+
+staging:
+  <<: *production
+
+training:
+  <<: *production
+
+development:
+  <<: *default
+  database: depot_development
+  min_messages: warning
+  username: postgres
+  password: postgres
+  host: localhost
+
+test:
+  <<: *default
+  database: depot_test
+  min_messages: warning
+  username: postgres
+  password: postgres
+  host: localhost
+
