@@ -6,12 +6,15 @@ class LineItem < ApplicationRecord
     product.price * quantity
   end
 
-  def destroy
-    if quantity > 1
-      self.quantity -= 1
-      save!
-    else
-      super
-    end
+
+  private
+
+  def decrement_or_destroy
+    quantity > 1 ? decrement_quantity : destroy
   end
+  def decrement_quantity
+    self.quantity -= 1
+    save!
+  end
+
 end
