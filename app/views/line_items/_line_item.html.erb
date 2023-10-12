@@ -11,4 +11,7 @@
   <td class="text-right font-bold">
     <%= number_to_currency(line_item.total_price) %>
   </td>
+  <td class="text-right">
+    <%= button_to 'Remove', line_item, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </td>
 </tr>
